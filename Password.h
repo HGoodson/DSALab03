@@ -1,6 +1,10 @@
 #if !defined PASSWORD_H
 #define PASSWORD_H
 
+# include "ListArray.h"
+# include "Text.h"
+using namespace CSC2110;
+
 //complete the includes
 
 class Password
@@ -14,8 +18,15 @@ class Password
       int getNumMatches(String* curr_word, String* word_guess);
 
    public:
-
-
+	   Password();
+	   ~Password();
+	   void addWord(String* word);
+	   void guess(int try_password,int num_matches);
+	   int getNumberOfPasswordsLeft();
+	   int bestGuess();
+	   String* getOriginalWord(int index);
+       void displayViableWords();
+	   
 };
 
 #endif

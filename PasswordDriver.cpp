@@ -1,45 +1,54 @@
 #include "Password.h"
 //fill in includes, don't forget namespaces
+# include "ReadFile.h"
+# include "WriteFile.h"
+# include "Keyboard.h"
+using namespace std;
+using namespace CSC2110;
 
 #include <iostream>
 using namespace std;
 
 void addWords(Password* fh)
 {
-   Keyboard* kb = Keyboard::getKeyboard();
-   String* file_str = kb->readString("Enter the file name containing the possible passwords: ");
-   ReadFile* rf = new ReadFile(file_str->getText());
+   CSC2110::Keyboard* kb = Keyboard::getKeyboard();
+   CSC2110::String* file_str = kb->readString("Enter the file name containing the possible passwords: ");
+   CSC2110::ReadFile* rf = new ReadFile(file_str->getText());
    delete file_str;
 
-   String* num_words_str = rf->readLine();
+   CSC2110::String* num_words_str = rf->readLine();
    int num_words = num_words_str->a_to_i();
    delete num_words_str;
-
+ 
    for (int i = 0; i < num_words; i++)
    {
-      String* word = rf->readLine();
-      fh->addWord(word);
-   }
 
-   delete rf;
+      CSC2110::String* word = rf->readLine();
+		fh->addWord(word);
+   }
+   
+	delete rf;
    fh->displayViableWords();
+   
 }
 
 void guessWords(Password* fh)
 {
-   Keyboard* kb = Keyboard::getKeyboard();
+	
+   CSC2110::Keyboard* kb = Keyboard::getKeyboard();
    int numLeft = fh->getNumberOfPasswordsLeft();
    while (numLeft > 1)  //terminate if the password has been identified, or there is no valid password (user entry error)
    {
+	cout<<"eeeeeeeeee";
       int best_guess_index = fh->bestGuess();
 
-      String* best_guess_word = fh->getOriginalWord(best_guess_index);
+      CSC2110::String* best_guess_word = fh->getOriginalWord(best_guess_index);
       cout << "You should guess \"";
-      best_guess_word->displayString();
+	  best_guess_word->displayString();
       cout << "\" at index " << best_guess_index;
       cout << endl << endl;
 
-      String* guess_str = kb->readString("Index of word in the original word list to guess (1-based): ");
+      CSC2110::String* guess_str = kb->readString("Index of word in the original word list to guess (1-based): ");
       int guess = guess_str->a_to_i();
       delete guess_str;
 
@@ -60,5 +69,7 @@ int main()
    Password* fallout = new Password();
    addWords(fallout);
    guessWords(fallout);
+ 
+   
    delete fallout;
 }
