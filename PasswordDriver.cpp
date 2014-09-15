@@ -1,7 +1,7 @@
 #include "Password.h"
 //fill in includes, don't forget namespaces
 # include "ReadFile.h"
-# include "WriteFile.h"
+# include "WriteFile.h" 
 # include "Keyboard.h"
 using namespace std;
 using namespace CSC2110;
@@ -39,7 +39,7 @@ void guessWords(Password* fh)
    int numLeft = fh->getNumberOfPasswordsLeft();
    while (numLeft > 1)  //terminate if the password has been identified, or there is no valid password (user entry error)
    {
-	cout<<"eeeeeeeeee";
+	
       int best_guess_index = fh->bestGuess();
 
       CSC2110::String* best_guess_word = fh->getOriginalWord(best_guess_index);
@@ -52,7 +52,7 @@ void guessWords(Password* fh)
       int guess = guess_str->a_to_i();
       delete guess_str;
 
-      String* match_str = kb->readString("Number of character matches: ");
+      CSC2110::String* match_str = kb->readString("Number of character matches: ");
       int match = match_str->a_to_i();
       delete match_str;
       cout << endl;
