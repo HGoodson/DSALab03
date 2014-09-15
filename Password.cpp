@@ -8,10 +8,8 @@ using namespace CSC2110;
 
 Password::Password()//
 {
-	ListArray<String>*all_passwords = new ListArray<String>;
-	all_words = all_passwords;
-	ListArray<String>* possible_passwords = new ListArray<String>;
-	viable_words = possible_passwords;
+	all_words=new ListArray<String>;
+	viable_words=new ListArray<String>;
 	
 }
 Password::~Password()//
@@ -28,26 +26,22 @@ Password::~Password()//
 void Password::addWord(String* word)//
 {	
 	len = word->length();
-	ListArrayIterator<String>* add_iter = viable_words->iterator();
-	while(add_iter->hasNext())
-	{ 
-		if(word->length()!=len)return;
-		word = add_iter->next();
+	
+	
 		viable_words->add(word);
 		all_words->add(word);
-	}
+	
 	
 }
 void Password::guess(int try_password,int num_matches)
  {	
 	int i=0;
-	ListArray<String>* guess_words= viable_words;
-	ListArrayIterator<String>* guess_iter = guess_words->iterator();
+	ListArrayIterator<String>* guess_iter = viable_words->iterator();
 	while(guess_iter->hasNext())
 	{
-		if(num_matches != getNumMatches(all_words->get(try_password),guess_words->get(i)))
+		if(num_matches != getNumMatches(all_words->get(try_password),viable_words->get(i)))
 		{
-			guess_words->remove(i);
+			viable_words->remove(i);
 		}
 		i++;
 		
@@ -74,6 +68,7 @@ void Password::displayViableWords()
 	{
 		CSC2110::String* temp = temp_iter->next();
 		temp->displayString();
+		cout<<endl;
 	}	
 }
 
@@ -84,7 +79,7 @@ void Password::displayViableWords()
 		for(int x=0;x<len;x++)
 		{
 			
-			if(curr_word->compare(word_guess)) 
+			if(curr_word->charAt(x)== word_guess->charAt(x) )
 				{
 					matches++;
 				}
