@@ -20,7 +20,12 @@ class Password
    public:
 	   Password();
 	   ~Password();
+	   //preconditions: words must be same length 
+	   //				1st word sets standard for word length
+	   //postconditions: words that break the mold are skipped over
 	   void addWord(String* word);
+	   //preconditions: (1-Based)
+	   //postconditions: viable_words now points to a smaller list
 	   void guess(int try_password,int num_matches);
 	   int getNumberOfPasswordsLeft();
 	   int bestGuess();
