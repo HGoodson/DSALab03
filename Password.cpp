@@ -6,13 +6,13 @@ using namespace std;
 using namespace CSC2110;
 
 
-Password::Password()//
+Password::Password()
 {
 	all_words=new ListArray<String>;
 	viable_words=new ListArray<String>;
 	len=0;
 }
-Password::~Password()//
+Password::~Password()
 {
 	ListArrayIterator<String>* del_iter = all_words->iterator();
 	while(del_iter->hasNext())
@@ -23,11 +23,13 @@ Password::~Password()//
 	}
 	delete del_iter;
 }
-void Password::addWord(String* word)//
+void Password::addWord(String* word)
 {	
-	if(len==0)
+	if(len == 0)
 	{
 		len = word->length();
+		viable_words->add(word);
+		all_words->add(word);
 	}
 	else if(word->length()==len)
 	{
@@ -72,15 +74,15 @@ String* Password::getOriginalWord(int index)
 
 
 void Password::displayViableWords()
-{
-	
+{	
 	ListArrayIterator<String>* temp_iter = viable_words->iterator();
 	while(temp_iter->hasNext())
 	{
 		CSC2110::String* temp = temp_iter->next();
 		temp->displayString();
 		cout<<endl;
-	}	
+	}
+	delete temp_iter;
 }
 
  int Password::getNumMatches(String* curr_word, String* word_guess)
@@ -106,7 +108,7 @@ int Password::bestGuess()
    ListArrayIterator<String>* all_iter = all_words->iterator();
    while(all_iter->hasNext())
    {
-      CSC2110::String* original_word = all_iter->next();
+      String* original_word = all_iter->next();
 
       //loop over only those words that could still be the password
       //count up the number of matches between a possible password and a word in the original list
@@ -120,7 +122,7 @@ int Password::bestGuess()
       ListArrayIterator<String>* viable_iter = viable_words->iterator();
       while(viable_iter->hasNext())
       {
-         CSC2110::String* viable_word = viable_iter->next();
+         String* viable_word = viable_iter->next();
          int num_matches = getNumMatches(viable_word, original_word);
          count_num_matches[num_matches]++;
       }
